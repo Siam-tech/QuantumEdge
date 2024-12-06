@@ -15,7 +15,7 @@
   <h1> Fill up this form to join <big><i>The Avengers</i></big> </h1> 
   <form style="border:2px solid black;"> 
    <h1 style="text-align: center;"><big><i>AVENGERS INITIATIVE</i></big></h1> 
-   <h2 style="text-align: center;">New York-Amecica</h2> 
+   <h2 style="text-align: center;">New York-America</h2> 
    <br> 
    <br> 
    <div> <label for="name" style="margin-left: 7px;">Enter your name:</label> 
@@ -26,25 +26,19 @@
     <input type="radio" name="gender" id="female" value="female">Female 
     <br> 
     <br> <label for="date" style="margin-left: 7px;">Your Birthdate:</label> 
-    <input type="date" value="2000-01-01" max="2006-12-31" id="date"> 
+    <input type="date" value="2000-01-01" id="date"> 
     <br> 
     <br> <label for="number" style="margin-left: 7px;">Enter your phone number:</label> 
     <input type="number" name="Number" id="number" placeholder="Enter your phone number"> 
     <br> 
-    <br> <label for="NID" style="margin-left: 7px;">Enter your NID number:</label> 
-    <input type="Number" name="Nid" id="NID" placeholder="Enter your NID number" placeholder="Enter your NID number"> 
-    <br>
-    <br>
-    <label for = "email" style="margin-left: 7px;">Enter your email:</label>
-    <input type="email" id = "email" placeholder="Enter your email" style="margin-left: 7px;"></input>
-    <br> 
-    <br> 
-    <h2 style="margin-left: 7px;">Choose the powers you have:</h2> 
-    <input type="Checkbox" name="Fly" id="fly" value="Fly">Fly 
-    <br> 
-    <input type="Checkbox" name="Strength" id="strength" value="strength">Strength 
-    <br> 
-    <input type="Checkbox" name="Regeneration" id="Regeneration" value="Regeneration">Regeneration 
+    
+    <br> <label for="brn" style="margin-left: 7px;">Enter your Birth registration number:</label> 
+    <input type="number" name="BRN" id="brn" placeholder="Enter your Birth registration number">
+     <br>
+     <br>
+    <label for="email" style="margin-left: 7px;">Enter your email:</label>
+    <input type="email" id="email" placeholder="Enter your email" style="margin-left: 7px;">
+    <br>  
     <br> 
     <br> <textarea id="details" rows="6" cols="50" placeholder="Enter your details....." style="margin-left: 7px;"></textarea> 
     <br> 
@@ -61,11 +55,14 @@
   <h2 id="resultname" style="margin-left: 7px;"></h2> 
   <h2 id="rradio" style="margin-left: 7px;"></h2> 
   <h2 id="resultdate" style="margin-left: 7px;"></h2> 
-  <h2 id="resultnumber" style="margin-left: 7px;"></h2> 
-  <h2 id="resultNID" style="margin-left: 7px;"></h2>
+  <h2 id="resultnumber" style="margin-left: 7px;"></h2>
+  <h2 id="resultbrn" style="margin-left: 7px;"></h2>
   <h2 id="resultemail" style="margin-left: 7px;"></h2>
   <h2 id="powers" style="margin-left: 7px;"></h2> 
   <h2 id="resultdetails" style="margin-left: 7px;"></h2>
+  <br>
+  <br>  
+  <h2 id="resultID" style="margin-left: 7px;"></h2>
 
    <style>
   .submit{
@@ -88,6 +85,7 @@
 <script>
 
 let resubmit = 0;
+
 function Submit(){
   
   var names = document.getElementById('name').value;
@@ -95,192 +93,153 @@ function Submit(){
   var radio2 = document.getElementById('female');
   var dates = document.getElementById('date').value;
   var number = document.getElementById('number').value;
-  var NID = document.getElementById('NID').value;
+  var Brn = document.getElementById('brn').value;
   var emails = document.getElementById('email').value;
-  var checkbox1 = document.getElementById('fly');
-  var checkbox2 = document.getElementById('strength');
-  var checkbox3 = document.getElementById('Regeneration');
   var details = document.getElementById('details').value; 
   let resultname = "";
   let rradio = "";
   let resultdate = "";
   let resultnumber = "";
-  let resultNID = "";
-  let resultemail = ""
-  let powers = "Powers:" ;
+  let resultbrn = "";
+  let resultemail = "";
   let resultdetails = "";
-  let score = 6;
+  let score = 5;
   let condition = "";
-  
-  if (names != ""){
-    
-    resultname = "Name: " + names;
-    
-  }
-  else{
-    
-    resultname = "Name: Not entered";
-    score = score-1;
-    
-  }
-  
-  if(radio1.checked){
-    
-    rradio = "Gender: " + radio1.value;
-    
-  }
-  
-  else if(radio2.checked){
-    
-    rradio = "Gender: " + radio2.value;
-    
-  }
-  
-  else{
-    
-    rradio = "Gender: Not entered";
-    score = score-1;
-        
-  }
-  
-  if(dates == "2000-01-01"){
-    
-    resultdate = "Birthdate: Not entered";
-    score = score-1;
-    
-  }
-  
-  else{
-    
-    resultdate = "Birthdate: "+ dates;
-    
-  }
-  if(number != ""){
-    
-    resultnumber = "Phone Number: " + number;
-    
-  }
-  else{
-    
-    resultnumber = "Phone Number: Not entered";
-    score = score-1;
-    
-  }
-  if(NID != ""){
-    
-    resultNID = "NID Number: " + NID;
-    
-  }
-    
-  else{
-    
-    resultNID = "NID: Not entered";
-    score = score-1;
-    
-  }
-  
-    if(emails != ""){
-    
-    resultemail = "Email: " + emails;
-    
-  }
-  
-  else{
-    
-    resultemail = "Email: Not entered";
-    score = score-1;
- 
-  }
-  
-  if(checkbox1.checked){
-    
-    powers = powers + " Fly";
-    
-  }
-  if(checkbox2.checked){
-    
-    if(checkbox1.checked){
-      
-      powers = powers + ",Strength";
-      
-    }
 
-    else{ 
-    powers = powers + "  Strength";
-    }
-    
+  // Check inputs
+  if (names != ""){
+    resultname = "Name: " + names;
+  } else {
+    resultname = "Name: Not entered";
+    score = score - 1;
   }
-  if(checkbox3.checked){
-    
-    if(checkbox1.checked){
-      
-      powers = powers + ",Regeneration";
-      
-    }
-    else if(checkbox2.checked){
-     
-     powers = powers + ",Regeneration"; 
-      
+
+  if(radio1.checked){
+    rradio = "Gender: " + radio1.value;
+  }
+  else if(radio2.checked){
+    rradio = "Gender: " + radio2.value;
+  }
+  else{
+    rradio = "Gender: Not entered";
+    score = score - 1;
+  }
+
+  if(dates == "2000-01-01"){
+    resultdate = "Birthdate: Not entered";
+    score = score - 1;
+  } else {
+    resultdate = "Birthdate: "+ dates;
+  }
+
+  if(number != ""){
+       // Phone Number Validation
+    if (!/^\d{10,11}$/.test(number)) {
+        alert("Invalid phone number! It must be 10 or 11 digits.");
+        score--;
     }
     
     else{
-     
-     powers = powers + "  Regeneration";
-     
-     }
-  }
-  if(powers == "Powers:"){
+    resultnumber = "Phone Number: " + number;
+    }
     
-    powers = "Powers: None of the above";
-    
-  }
- if(details == ""){
-    
-    resultdetails = "Details: Not entered"; 
-    score = score-1;
-    
-      }
-  else{
-    
-    resultdetails = "Details: " + details; 
-    
+  } 
+  else {
+    resultnumber = "Phone Number: Not entered";
+    score = score - 1;
   }
 
-  if(score == 6){
+  if(Brn != ""){
+    
+        // BRN Validation
+    if (!/^\d{8,12}$/.test(Brn)) {
+        alert("Invalid BRN! It must be 8-12 digits.");
+        score--;
+    }
+    
+    else{
+    resultbrn = "Birth Registration Number: " + Brn;
+    }
+    
+  } 
+  
+  else {
+    resultbrn = "Birth Registration Number: Not entered";
+    score = score - 1;
+  }
+  
+
+  if(emails != ""){
+    
+      // Email Validation
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emails)) {
+        alert("Invalid email! Please enter a valid email address.");
+        score--;
+    }
+    else{
+    resultemail = "Email: " + emails;
+    }
+  } 
+  
+  else {
+    resultemail = "Email: Not entered";
+    score = score - 1;
+  }
+
+  if(details == ""){
+    resultdetails = "Details: Not entered"; 
+    score = score - 1;
+  } else {
+    resultdetails = "Details: " + details; 
+  }
+
+  if(score == 5){
     if(resubmit == 0){
-  condition = "Submitted:"
-  document.getElementById('condition').innerText = condition;
-  document.getElementById('resultname').innerText = resultname;
-  document.getElementById('rradio').innerText = rradio;
-  document.getElementById('resultdate').innerText = resultdate;
-  document.getElementById('resultnumber').innerText = resultnumber;
-  document.getElementById('resultNID').innerText = resultNID;
-  document.getElementById('resultemail').innerText = resultemail;
-  document.getElementById('powers').innerText = powers;
-  document.getElementById('resultdetails').innerText = resultdetails;
-  alert("Form submitted")
-  resubmit = 1;
-  }
-  else if(resubmit == 1){
-    alert("Form already submitted");
-  }
+      // Generate ID
+      var birthdate = new Date(dates);
+      var birthmonth = birthdate.getMonth() + 1;
+      var birthday = birthdate.getDate();
+      var last3phone = number.slice(-3);
+      var last3brn = Brn.slice(-3);
+
+      // Create ID in the desired format
+      var generatedID = names[0].toUpperCase() + "-" + gender + "-" + birthday + "-" + birthmonth + "-" + last3phone + "-" + last3brn;
+
+      // Save to localStorage
+      localStorage.setItem('AvengerID', generatedID);
+      var resultId = "Your ID: " + generatedID;
+
+      // Display the result and ID
+      document.getElementById('condition').innerText = "Submitted:";
+      document.getElementById('resultname').innerText = resultname;
+      document.getElementById('rradio').innerText = rradio;
+      document.getElementById('resultdate').innerText = resultdate;
+      document.getElementById('resultnumber').innerText = resultnumber;
+      document.getElementById('resultbrn').innerText = resultbrn;
+      document.getElementById('resultemail').innerText = resultemail;
+      document.getElementById('resultdetails').innerText = resultdetails;
+      document.getElementById('resultID').innerText = resultID;
+      alert("Form submitted.Welcome to The Avenger");
+
+      resubmit = 1;
+    }
+    else if(resubmit == 1){
+      alert("Form already submitted");
+    }
   }
   else{
-    
-  condition = "Couldn't submit.Please fill up not entered informations:";
-  alert("Couldn't submit.Please fill up not entered information");
-  document.getElementById('condition').innerText = condition;
-  document.getElementById('resultname').innerText = resultname;
-  document.getElementById('rradio').innerText = rradio;
-  document.getElementById('resultdate').innerText = resultdate;
-  document.getElementById('resultnumber').innerText = resultnumber;
-  document.getElementById('resultNID').innerText = resultNID;
-  document.getElementById('resultemail').innerText = resultemail;
-  document.getElementById('powers').innerText = powers;
-  document.getElementById('resultdetails').innerText = resultdetails;
+    condition = "Couldn't submit. Please fill up missing information.";
+    alert("Couldn't submit. Please fill up missing information.");
+    document.getElementById('condition').innerText = condition;
+    document.getElementById('resultname').innerText = resultname;
+    document.getElementById('rradio').innerText = rradio;
+    document.getElementById('resultdate').innerText = resultdate;
+    document.getElementById('resultemail').innerText = resultemail;
+    document.getElementById('resultdetails').innerText = resultdetails;
+    document.getElementById('resultbrn').innerText = resultbrn;
   }
-  }
+}
 </script>
 
  </body>
-</html>
+  </html>
