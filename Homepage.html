@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Fixed Brown Navbar</title> 
+  <style>
+  #navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #4F4F4F; 
+  color: 00FFFF; 
+  display: flex;
+  align-items: center;
+  padding: 0 20px; /* Padding for spacing on the left */
+  z-index: 1000;
+}
+
+#navbar .logo {
+  font-size: 24px; /* Larger font for the logo */
+  font-weight: bold; /* Bold text */
+}
+
+.button{
+  
+  background-color: red;
+  color: white;
+  padding: 20px 15px;
+  font-size: 26px;
+  text-decoration: none;  
+}
+
+.button:hover{
+  
+  background-color: blue;
+    
+}
+
+  </style> 
+ </head> 
+ <body> 
+  <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
+   <div class="logo"> <i>The-Avengers</i> 
+   </div> <a target="_blank" href="https://Siam-tech.github.io/The-Avengers/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;"> Home </a> 
+  </div> 
+  <br> 
+  <br> 
+  <br> 
+  <br> 
+  <div style="border: 1px solid black; font-size:30px; display: flex; justify-content: space-between;"> <span id="name"></span> <span id="ID" style="text-align: right; font-size: 30px;"></span> 
+  </div> 
+  <br> 
+  <br> 
+  <h1 style="text-align: center;Font-size: 90px;"><big><i>Welcome to</i></big></h1> 
+  <br> 
+  <img src="https://i.pinimg.com/736x/44/b2/9a/44b29a50700a5becefab80661e1446d1.jpg" style="display: block; margin: 0 auto; width: 500px;" alt="Image"> 
+  <br>
+  <br>
+  <a target="_blank" href ="" class="button">Games</a>
+  <a target="_blank" href="" class="button">Avengers profiles</a>
+  <a target="_blank" href="" class="button">Team meeting</a>
+    
+  <script>
+  var name = localStorage.getItem('Avengers-name');
+  var ID = localStorage.getItem('AvengerID');
+  name = "Name: " + name;
+  ID = "ID: " + ID;
+  
+  
+  document.getElementById('name').innerText = name;
+  document.getElementById('ID').innerText = ID;
+   </script> 
+ </body>
+</html>
