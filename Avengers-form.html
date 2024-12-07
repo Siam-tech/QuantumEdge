@@ -164,7 +164,7 @@ function Submit(){
   if(number != ""){
        // Phone Number Validation
     if (!/^\d{10,11}$/.test(number)) {
-        alert("Invalid phone number! It must be 10 or 11 digits.");
+        alert("Invalid phone number!Enter a valid phone number.");
         score--;
     }
     
@@ -182,7 +182,7 @@ function Submit(){
     
         // BRN Validation
     if (!/^\d{8,12}$/.test(Brn)) {
-        alert("Invalid BRN! It must be 8-12 digits.");
+        alert("Invalid Birth registration number!");
         score--;
     }
     
@@ -238,6 +238,8 @@ function Submit(){
       localStorage.setItem('AvengerID', generatedID);
       var resultId = "Your ID: " + generatedID;
 
+      localStorage.setItem('Avengers-name',names);
+      
       // Display the result and ID
       document.getElementById('condition').innerText = "Submitted:";
       document.getElementById('resultname').innerText = resultname;
