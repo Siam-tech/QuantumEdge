@@ -268,7 +268,7 @@ function Submit(){
       var last3brn = Brn.slice(-3);
 
       // Create ID in the desired format
-      var generatedID = names[0].toUpperCase() + "-" + gender + "-" + birthday + "-" + birthmonth + "-" + last3phone + "-" + last3brn;
+      var generatedID = names[0].toUpperCase() + "-" + birthday + "-" + birthmonth + "-" + last3phone + "-" + last3brn;
 
       // Save to localStorage
       localStorage.setItem('AvengerID', generatedID);
