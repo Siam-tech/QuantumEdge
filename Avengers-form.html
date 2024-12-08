@@ -13,10 +13,6 @@
  </head> 
  <body> 
 
-   <!-- Add Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-
    
  <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;">
    <div class="logo">
@@ -113,40 +109,26 @@
 
 </style>
 
-<script>
+<script type="module">
+  import firebase from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+  import 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
 
   const firebaseConfig = {
+    apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
+    authDomain: "avengers-account.firebaseapp.com",
+    databaseURL: "https://avengers-account-default-rtdb.firebaseio.com",
+    projectId: "avengers-account",
+    storageBucket: "avengers-account.firebasestorage.app",
+    messagingSenderId: "738359469795",
+    appId: "1:738359469795:web:e032337eb00df0257d47d6",
+    measurementId: "G-9F4K7KVGED"
+  };
 
+  const app = firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+</script>   
 
-  apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
-
-
-  authDomain: "avengers-account.firebaseapp.com",
-
-
-  databaseURL: "https://avengers-account-default-rtdb.firebaseio.com",
-
-
-  projectId: "avengers-account",
-
-
-  storageBucket: "avengers-account.firebasestorage.app",
-
-
-  messagingSenderId: "738359469795",
-
-
-  appId: "1:738359469795:web:e032337eb00df0257d47d6",
-
-
-  measurementId: "G-9F4K7KVGED"
-
-
-};
-
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database(app);
+<script>
 
 
 let resubmit = 0;
