@@ -151,8 +151,7 @@ const database = firebase.database(app);
 
 let resubmit = 0;
 
-function Submit(){
-  
+function Submit() {
   var names = document.getElementById('name').value;
   var radio1 = document.getElementById('male');
   var radio2 = document.getElementById('female');
@@ -172,94 +171,77 @@ function Submit(){
   let condition = "";
 
   // Check inputs
-  if (names != ""){
+  if (names != "") {
     resultname = "Name: " + names;
   } else {
     resultname = "Name: Not entered";
     score = score - 1;
   }
 
-  if(radio1.checked){
+  if(radio1.checked) {
     rradio = "Gender: " + radio1.value;
-  }
-  else if(radio2.checked){
+  } else if(radio2.checked) {
     rradio = "Gender: " + radio2.value;
-  }
-  else{
+  } else {
     rradio = "Gender: Not entered";
     score = score - 1;
   }
 
-  if(dates == "2000-01-01"){
+  if(dates == "2000-01-01") {
     resultdate = "Birthdate: Not entered";
     score = score - 1;
   } else {
-    resultdate = "Birthdate: "+ dates;
+    resultdate = "Birthdate: " + dates;
   }
 
-  if(number != ""){
-       // Phone Number Validation
+  if(number != "") {
+    // Phone Number Validation
     if (!/^\d{10,11}$/.test(number)) {
-        alert("Invalid phone number!Enter a valid phone number.");
-        score--;
+      alert("Invalid phone number! Enter a valid phone number.");
+      score--;
+    } else {
+      resultnumber = "Phone Number: " + number;
     }
-    
-    else{
-    resultnumber = "Phone Number: " + number;
-    }
-    
-  } 
-  else {
+  } else {
     resultnumber = "Phone Number: Not entered";
     score = score - 1;
   }
 
-  if(Brn != ""){
-    
-        // BRN Validation
+  if(Brn != "") {
+    // BRN Validation
     if (!/^\d{15,17}$/.test(Brn)) {
-        alert("Invalid Birth registration number!");
-        score--;
+      alert("Invalid Birth registration number!");
+      score--;
+    } else {
+      resultbrn = "Birth Registration Number: " + Brn;
     }
-    
-    else{
-    resultbrn = "Birth Registration Number: " + Brn;
-    }
-    
-  } 
-  
-  else {
+  } else {
     resultbrn = "Birth Registration Number: Not entered";
     score = score - 1;
   }
-  
 
-  if(emails != ""){
-    
-      // Email Validation
+  if(emails != "") {
+    // Email Validation
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emails)) {
-        alert("Invalid email! Please enter a valid email address.");
-        score--;
+      alert("Invalid email! Please enter a valid email address.");
+      score--;
+    } else {
+      resultemail = "Email: " + emails;
     }
-    else{
-    resultemail = "Email: " + emails;
-    }
-  } 
-  
-  else {
+  } else {
     resultemail = "Email: Not entered";
     score = score - 1;
   }
 
-  if(details == ""){
+  if(details == "") {
     resultdetails = "Details: Not entered"; 
     score = score - 1;
   } else {
     resultdetails = "Details: " + details; 
   }
 
-  if(score == 5){
-    if(resubmit == 0){
+  if(score == 5) {
+    if(resubmit == 0) {
       // Generate ID
       var birthdate = new Date(dates);
       var birthmonth = birthdate.getMonth() + 1;
@@ -267,40 +249,39 @@ function Submit(){
       var last3phone = number.slice(-3);
       var last3brn = Brn.slice(-3);
 
-      // Create ID in the desired format
-      var generatedID = names[0].toUpperCase() + "-" + birthday + "-" + birthmonth + "-" + last3phone + "-" + last3brn;
+      // Use rradio value instead of the undefined gender variable
+      var generatedID = names[0].toUpperCase() + "-" + rradio.split(": ")[1] + "-" + birthday + "-" + birthmonth + "-" + last3phone + "-" + last3brn;
 
       // Save to localStorage
       localStorage.setItem('AvengerID', generatedID);
       var resultId = "Your ID: " + generatedID;
 
-      localStorage.setItem('Avengers-name',names);
-
+      localStorage.setItem('Avengers-name', names);
 
       // Collect the form data
-const formData = {
-  resultname: resultname,
-  rradio: rradio,
-  resultdate: resultdate,
-  resultnumber: resultnumber,
-  resultdetails: resultdetails
-};
+      const formData = {
+        resultname: resultname,
+        rradio: rradio,
+        resultdate: resultdate,
+        resultnumber: resultnumber,
+        resultdetails: resultdetails
+      };
 
-// Get the user ID from localStorage
-const AvengerID = localStorage.getItem('AvengerID');
+      // Get the user ID from localStorage
+      const AvengerID = localStorage.getItem('AvengerID');
 
-// Reference to the Firebase database where the data will be stored under the user's ID
-const formRef = database.ref('formSubmissions/' + AvengerID); // This will store data under the user's ID
+      // Reference to the Firebase database where the data will be stored under the user's ID
+      const formRef = database.ref('formSubmissions/' + AvengerID); // This will store data under the user's ID
 
-// Save data
-formRef.set(formData)
-  .then(() => {
-    var done = 1;
-  })
-  .catch((error) => {
-    alert('Error in sign up');
-  });
-      
+      // Save data
+      formRef.set(formData)
+        .then(() => {
+          var done = 1;
+        })
+        .catch((error) => {
+          alert('Error in sign up');
+        });
+
       // Display the result and ID
       document.getElementById('condition').innerText = "Submitted:";
       document.getElementById('resultname').innerText = resultname;
@@ -310,16 +291,16 @@ formRef.set(formData)
       document.getElementById('resultbrn').innerText = resultbrn;
       document.getElementById('resultemail').innerText = resultemail;
       document.getElementById('resultdetails').innerText = resultdetails;
-      document.getElementById('resultID').innerText = resultID;
-      alert("Form submitted.Welcome to The Avenger");
+      document.getElementById('resultID').innerText = generatedID;
+      alert("Form submitted. Welcome to The Avenger!");
 
       resubmit = 1;
     }
-    else if(resubmit == 1){
+    else if(resubmit == 1) {
       alert("Form already submitted");
     }
   }
-  else{
+  else {
     condition = "Couldn't submit. Please fill up missing information.";
     alert("Couldn't submit. Please fill up missing information.");
     document.getElementById('condition').innerText = condition;
