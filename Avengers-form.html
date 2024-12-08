@@ -144,6 +144,11 @@
 
 };
 
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database(app);
+
+
 let resubmit = 0;
 
 function Submit(){
@@ -270,6 +275,31 @@ function Submit(){
       var resultId = "Your ID: " + generatedID;
 
       localStorage.setItem('Avengers-name',names);
+
+
+      // Collect the form data
+const formData = {
+  resultname: resultname,
+  rradio: rradio,
+  resultdate: resultdate,
+  resultnumber: resultnumber,
+  resultdetails: resultdetails
+};
+
+// Get the user ID from localStorage
+const AvengerID = localStorage.getItem('AvengerID');
+
+// Reference to the Firebase database where the data will be stored under the user's ID
+const formRef = database.ref('formSubmissions/' + AvengerID); // This will store data under the user's ID
+
+// Save data
+formRef.set(formData)
+  .then(() => {
+    var done = 1;
+  })
+  .catch((error) => {
+    alert('Error in sign up');
+  });
       
       // Display the result and ID
       document.getElementById('condition').innerText = "Submitted:";
