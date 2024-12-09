@@ -1,26 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="This page is a friends group for me and my friends. The theme is on my favorite superhero team 'The Avengers'.">
-<meta name="keywords" content="Avengers, superheroes, HTML, CSS, JavaScript, website">
-<meta name="author" content="Siam Islam">
-
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="description" content="This page is a friends group for me and my friends. The theme is on my favorite superhero team 'The Avengers'."> 
+  <meta name="keywords" content="Avengers, superheroes, HTML, CSS, JavaScript, website"> 
+  <meta name="author" content="Siam Islam"> 
   <title>
      Form to join The Avengers 
    </title> 
  </head> 
  <body> 
-
-   
- <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;">
-   <div class="logo">
-     <img src ="https://Siam-tech.github.io/The-Avengers/Logo.png" width= 60px>
-   </div>
-</div>
-  <br>
-  <br>
+  <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
+   <div class="logo"> 
+    <img src="https://Siam-tech.github.io/The-Avengers/Logo.png" width="60px"> 
+   </div> 
+  </div> 
+  <br> 
+  <br> 
   <h1> Fill up this form to join <big><i>The Avengers</i></big> </h1> 
   <form style="border:2px solid black;"> 
    <h1 style="text-align: center;"><big><i>AVENGERS INITIATIVE</i></big></h1> 
@@ -35,26 +32,24 @@
     <input type="radio" name="gender" id="female" value="female">Female 
     <br> 
     <br> <label for="date" style="margin-left: 7px;">Your Birthdate:</label> 
-    <input type="date" value="2000-01-01" id="date"> 
+    <input type="date" value="2008-09-23" id="date"> 
     <br> 
     <br> <label for="number" style="margin-left: 7px;">Enter your phone number:</label> 
     <input type="number" name="Number" id="number" placeholder="Enter your phone number"> 
     <br> 
-    
     <br> <label for="brn" style="margin-left: 7px;">Enter your Birth registration number:</label> 
-    <input type="number" name="BRN" id="brn" placeholder="Enter your Birth registration number">
-     <br>
-     <br>
-    <label for="email" style="margin-left: 7px;">Enter your email:</label>
-    <input type="email" id="email" placeholder="Enter your email" style="margin-left: 7px;">
-    <br>  
+    <input type="number" name="BRN" id="brn" placeholder="Enter your Birth registration number"> 
+    <br> 
+    <br> <label for="email" style="margin-left: 7px;">Enter your email:</label> 
+    <input type="email" id="email" placeholder="Enter your email" style="margin-left: 7px;"> 
+    <br> 
     <br> 
     <br> <textarea id="details" rows="6" cols="50" placeholder="Enter your details....." style="margin-left: 7px;"></textarea> 
     <br> 
     <br> 
    </div> 
   </form> 
-  <br> <button class="submit" onclick="Submit()">Submit</button>
+  <br> <button class="submit" onclick="Submit()">Submit</button> 
   <br> 
   <br> 
   <hr> 
@@ -64,16 +59,15 @@
   <h2 id="resultname" style="margin-left: 7px;"></h2> 
   <h2 id="rradio" style="margin-left: 7px;"></h2> 
   <h2 id="resultdate" style="margin-left: 7px;"></h2> 
-  <h2 id="resultnumber" style="margin-left: 7px;"></h2>
-  <h2 id="resultbrn" style="margin-left: 7px;"></h2>
-  <h2 id="resultemail" style="margin-left: 7px;"></h2>
+  <h2 id="resultnumber" style="margin-left: 7px;"></h2> 
+  <h2 id="resultbrn" style="margin-left: 7px;"></h2> 
+  <h2 id="resultemail" style="margin-left: 7px;"></h2> 
   <h2 id="powers" style="margin-left: 7px;"></h2> 
-  <h2 id="resultdetails" style="margin-left: 7px;"></h2>
-  <br>
-  <br>  
-  <h2 id="resultID" style="margin-left: 7px;"></h2>
-
-   <style>
+  <h2 id="resultdetails" style="margin-left: 7px;"></h2> 
+  <br> 
+  <br> 
+  <h2 id="resultID" style="margin-left: 7px;"></h2> 
+  <style>
   .submit{
   
   padding: 15px 25px;
@@ -106,14 +100,13 @@
   font-size: 40px; /* Larger font for the logo */
   font-weight: bold; /* Bold text */
 }
-
-</style>
-
-<script type="module">
+</style> 
+  <script type="module">
   // Import specific parts of Firebase SDK using named imports
+  import { ref, set } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
   import { getDatabase } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
-
+  
   // Your Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
@@ -131,6 +124,7 @@
 
   // Get a reference to the Firebase Realtime Database
   const database = getDatabase(app);
+  
 
 
 let resubmit = 0;
@@ -241,8 +235,7 @@ function Submit() {
       var resultId = "Your ID: " + generatedID;
 
       localStorage.setItem('Avengers-name', names);
-
-      // Collect the form data
+      
       const formData = {
         resultname: resultname,
         rradio: rradio,
@@ -254,16 +247,18 @@ function Submit() {
       const AvengerID = localStorage.getItem('AvengerID');
 
       // Reference to the Firebase database where the data will be stored under the user's ID
-      const formRef = database.ref('formSubmissions/' + AvengerID); // This will store data under the user's ID
+      const formRef = ref(database,'formSubmissions/' + AvengerID); // This will store data under the user's ID
 
       // Save data
-      formRef.set(formData)
+      set(formRef, formData)
         .then(() => {
           var done = 1;
         })
         .catch((error) => {
           alert('Error in sign up');
         });
+
+    
 
       // Display the result and ID
       document.getElementById('condition').innerText = "Submitted:";
@@ -295,7 +290,7 @@ function Submit() {
     document.getElementById('resultbrn').innerText = resultbrn;
   }
 }
-</script>
-
+window.Submit = Submit;
+</script> 
  </body>
-  </html>
+</html>
