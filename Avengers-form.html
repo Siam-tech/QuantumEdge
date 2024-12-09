@@ -110,9 +110,11 @@
 </style>
 
 <script type="module">
-  import firebase from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
-  import 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+  // Import specific parts of Firebase SDK using named imports
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+  import { getDatabase } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
 
+  // Your Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
     authDomain: "avengers-account.firebaseapp.com",
@@ -124,9 +126,12 @@
     measurementId: "G-9F4K7KVGED"
   };
 
-  const app = firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
-</script>   
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  // Get a reference to the Firebase Realtime Database
+  const database = getDatabase(app);
+</script>
 
 <script>
 
