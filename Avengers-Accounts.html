@@ -1,0 +1,102 @@
+<!doctype html>
+<html> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="description" content="This page is a friends group for me and my friends. The theme is on my favorite superhero team 'The Avengers'.This is a fanmade project and is not affiliated with Marvel Studios"> 
+  <meta name="keywords" content="Avengers, superheroes, HTML, CSS, JavaScript, website"> 
+  <meta name="author" content="Siam Islam"> 
+  <title>Avengers Accounts</title> 
+ </head> 
+ <body> <!-- Navbar --> 
+  <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
+   <div class="logo"> 
+    <img src="https://Siam-tech.github.io/The-Avengers/Logo.png" width="60px"> 
+   </div> <a href="https://Siam-tech.github.io/The-Avengers/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
+  </div> <!-- Data Container --> 
+  <div id="allData" style="margin-top: 70px; padding: 20px;"></div> 
+  <style>
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #4F4F4F;
+      color: #00FFFF;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    #navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .account {
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+  </style> 
+  <script type="module">
+  import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
+    authDomain: "avengers-account.firebaseapp.com",
+    databaseURL: "https://avengers-account-default-rtdb.firebaseio.com",
+    projectId: "avengers-account",
+    storageBucket: "avengers-account.appspot.com",
+    messagingSenderId: "738359469795",
+    appId: "1:738359469795:web:e032337eb00df0257d47d6",
+    measurementId: "G-9F4K7KVGED"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+
+
+  function retrieveAllData() {
+
+    const submissionsRef = ref(database, 'formSubmissions');
+
+    get(submissionsRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const allDataDiv = document.getElementById('allData');
+          allDataDiv.innerHTML = ""; // Clear the div before displaying new data
+
+          for (let avengerID in data) {
+            const submission = data[avengerID];
+            const submissionDiv = document.createElement('div');
+            submissionDiv.classList.add('account');
+            submissionDiv.innerHTML = `
+              <h3>AvengerID: ${avengerID}</h3>
+              <p><strong>${submission.resultname}</strong></p>
+              <p><strong>${submission.rradio}</strong></p>
+              <p><strong>${submission.resultdate}</strong></p>
+              <p><strong>${submission.resultdetails}</strong></p>
+            `;
+            allDataDiv.appendChild(submissionDiv);
+          }
+        } else {
+          alert("No data found in the database.");
+        }
+      })
+      .catch((error) => {
+        alert("Error fetching data:", error);
+      });
+  }
+
+  window.retrieveAllData = retrieveAllData;
+  retrieveAllData();
+</script> 
+ </body>
+</html>
