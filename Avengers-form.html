@@ -228,7 +228,7 @@ alert("This name is already reserved");
     resultdetails = "Details: " + details; 
   }
 
- localStorage.getItem('Avenger-logged');
+ Avenger-logged=localStorage.getItem('Avenger-logged');
  
 if(Avenger-logged == null){
   if(score == 5) {
@@ -256,12 +256,18 @@ if(Avenger-logged == null){
         resultdetails: resultdetails
       };
 
+     const worth = {
+      money:0
+     };
+     
+
       // Get the user ID from localStorage
       const AvengerID = localStorage.getItem('AvengerID');
 
       // Reference to the Firebase database where the data will be stored under the user's ID
       const formRef = ref(database,'formSubmissions/' + AvengerID); // This will store data under the user's ID
-
+      const Balance = ref(database, 'Money/'+AvengerID);
+     
       // Save data
       set(formRef, formData)
         .then(() => {
@@ -269,6 +275,14 @@ if(Avenger-logged == null){
         })
         .catch((error) => {
           alert('Error in sign up');
+        });
+     
+     set(Balance, worth)
+        .then(() => {
+          var done = 1;
+        })
+        .catch((error) => {
+          alert('Error in setting balance');
         });
 
     
@@ -287,7 +301,7 @@ if(Avenger-logged == null){
 
       resubmit = 1;
       localStorage.setItem('Avenger-logged',"True");
-      localStorage.setItem('worth',0);
+      localStorage.setItem('Avengers-money',0);
     }
     else if(resubmit == 1) {
       alert("Form already submitted");
