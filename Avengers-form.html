@@ -151,7 +151,17 @@ function Submit() {
   // Check inputs
   if (names != "") {
     resultname = "Name: " + names;
-  } else {
+  } 
+
+   else if(names.toUpperCase()=="TONY STARK"){
+
+alert("This name is already reserved");
+    score = score-1;
+
+}
+
+   
+  else {
     resultname = "Name: Not entered";
     score = score - 1;
   }
