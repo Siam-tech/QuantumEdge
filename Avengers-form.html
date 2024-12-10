@@ -230,7 +230,7 @@ alert("This name is already reserved");
 
  const Avenger_logged = localStorage.getItem('Avenger-logged');
  
-if(Avenger_logged == null){
+if(Avenger_logged != null){
   if(score == 5) {
     if(resubmit == 0) {
       // Generate ID
@@ -241,7 +241,7 @@ if(Avenger_logged == null){
       var last3brn = Brn.slice(-3);
 
       // Use rradio value instead of the undefined gender variable
-      var generatedID = names[0].toUpperCase() + "-" + rradio.split(": ")[1] + "-" + birthday + "-" + birthmonth + "-" + last3phone + "-" + last3brn;
+      var generatedID = names[0].toUpperCase() + "-" + birthday + "-" + birthmonth + "-" + last3phone + "-" + last3brn;
 
       // Save to localStorage
       localStorage.setItem('AvengerID', generatedID);
