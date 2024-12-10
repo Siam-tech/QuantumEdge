@@ -227,7 +227,7 @@ alert("This name is already reserved");
   } else {
     resultdetails = "Details: " + details; 
   }
-
+if(Avenger-logged == null){
   if(score == 5) {
     if(resubmit == 0) {
       // Generate ID
@@ -283,6 +283,7 @@ alert("This name is already reserved");
       alert("Form submitted. Welcome to The Avenger!");
 
       resubmit = 1;
+      localStorage.setItem(Avenger-logged,"True")
     }
     else if(resubmit == 1) {
       alert("Form already submitted");
@@ -299,6 +300,10 @@ alert("This name is already reserved");
     document.getElementById('resultdetails').innerText = resultdetails;
     document.getElementById('resultbrn').innerText = resultbrn;
   }
+}
+else{
+ alert("You've already joined")
+}
 }
 window.Submit = Submit;
 </script> 
