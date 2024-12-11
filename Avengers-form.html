@@ -32,7 +32,7 @@
     <input type="radio" name="gender" id="female" value="female">Female 
     <br> 
     <br> <label for="date" style="margin-left: 7px;">Your Birthdate:</label> 
-    <input type="date" value="2008-09-23" id="date"> 
+    <input type="date" value="2000-01-01" id="date"> 
     <br> 
     <br> <label for="number" style="margin-left: 7px;">Enter your phone number:</label> 
     <input type="number" name="Number" id="number" placeholder="Enter your phone number"> 
@@ -175,7 +175,7 @@ alert("This name is already reserved");
     score = score - 1;
   }
 
-  if(dates == "2000-01-01") {
+  if(dates == "1000-01-01") {
     resultdate = "Birthdate: Not entered";
     score = score - 1;
   } else {
@@ -230,7 +230,7 @@ alert("This name is already reserved");
 
  const Avenger_logged = localStorage.getItem('Avenger-logged');
  
-if(Avenger_logged != null){
+if(Avenger_logged == null){
   if(score == 5) {
     if(resubmit == 0) {
       // Generate ID
