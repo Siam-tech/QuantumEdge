@@ -1,0 +1,140 @@
+<!doctype html>
+<html> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="description" content="This page is a friends group for me and my friends. The theme is on my favorite superhero team 'The Avengers'.This is a fanmade project and is not affiliated with Marvel Studios"> 
+  <meta name="keywords" content="Avengers, superheroes, HTML, CSS, JavaScript, website"> 
+  <meta name="author" content="Siam Islam"> 
+  <title>Avengers Accounts</title> 
+ </head> 
+ <body> <!-- Navbar --> 
+  <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
+   <div class="logo"> 
+    <img src="https://Siam-tech.github.io/The-Avengers/Logo.png" width="60px"> 
+   </div> <a href="https://Siam-tech.github.io/The-Avengers/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
+  </div> <!-- Data Container --> 
+  <div id="allData" style="margin-top: 70px; padding: 20px;"></div> 
+  <style>
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #4F4F4F;
+      color: #00FFFF;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    #navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .account {
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+  </style> 
+  <script type="module">
+  import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
+  authDomain: "avengers-account.firebaseapp.com",
+  databaseURL: "https://avengers-account-default-rtdb.firebaseio.com",
+  projectId: "avengers-account",
+  storageBucket: "avengers-account.appspot.com",
+  messagingSenderId: "738359469795",
+  appId: "1:738359469795:web:e032337eb00df0257d47d6",
+  measurementId: "G-9F4K7KVGED"
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+// Function to retrieve data for a specific user
+async function getUserData(avengerID) {
+  try {
+    const userRef = ref(database, `formSubmissions/${avengerID}`);
+    const snapshot = await get(userRef);
+
+    if (snapshot.exists()) {
+      return snapshot.val(); // Return user data
+    } else {
+      throw new Error(`User with ID ${avengerID} not found.`);
+    }
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
+}
+
+let AvengerID = localStorage.getItem('AvengerID');
+
+// Function to retrieve balance for a specific user
+// Function to retrieve balance for a specific user
+async function getUserBalance(avengerID) {
+  try {
+    // Reference to the balance in the Firebase Realtime Database
+    const balanceRef = ref(database, `Money/${avengerID}/money`); 
+    
+    // Get the data snapshot from Firebase
+    const snapshot = await get(balanceRef);
+
+    // Check if the snapshot exists
+    if (snapshot.exists()) {
+      return snapshot.val(); // Return the balance value from Firebase
+    } else {
+      throw new Error(`Balance for user with ID ${avengerID} not found.`);
+    }
+  } catch (error) {
+    console.error("Error fetching balance:", error); // Log the error for debugging
+    alert("Failed to retrieve balance data.");
+  }
+}
+
+// Function to display user data and balance
+async function displayUserDetails(avengerID) {
+  const allDataDiv = document.getElementById('allData');
+  allDataDiv.innerHTML = ""; // Clear previous content
+
+  try {
+    const userData = await getUserData(avengerID);
+    const userBalance = await getUserBalance(avengerID);
+    
+
+    if (userData && userBalance !== undefined) {
+      const userDiv = document.createElement('div');
+      userDiv.classList.add('account');
+      userDiv.innerHTML = `
+        <img src = "https://Siam-tech.github.io/The-Avengers/Logo.png" width = 40px>
+        <h2>AvengerID: ${avengerID}</h2>
+        <h3>${userData.resultname}</h3>
+        <h3>${userData.rradio}</h3>
+        <h3>${userData.resultdate}</h3>
+        <h3>${userData.resultdetails}</h3>
+        <p>Account Balance: ${userBalance}$</p>
+      `;
+      allDataDiv.appendChild(userDiv);
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Failed to retrieve user details.");
+  }
+}
+
+// Example usage: Fetch and display data for a specific user
+ // Replace with the specific user ID
+displayUserDetails(AvengerID);
+</script> 
+ </body>
+</html>
