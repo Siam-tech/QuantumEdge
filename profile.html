@@ -73,7 +73,6 @@ async function getUserData(avengerID) {
       throw new Error(`User with ID ${avengerID} not found.`);
     }
   } catch (error) {
-    console.error(error);
     alert(error.message);
   }
 }
@@ -97,7 +96,7 @@ async function getUserBalance(avengerID) {
       throw new Error(`Balance for user with ID ${avengerID} not found.`);
     }
   } catch (error) {
-    console.error("Error fetching balance:", error); // Log the error for debugging
+    
     alert("Failed to retrieve balance data.");
   }
 }
@@ -127,7 +126,7 @@ async function displayUserDetails(avengerID) {
       allDataDiv.appendChild(userDiv);
     }
   } catch (error) {
-    console.error(error);
+    
     alert("Failed to retrieve user details.");
   }
 }
