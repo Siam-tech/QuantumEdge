@@ -230,7 +230,7 @@ alert("This name is already reserved");
 
  const Avenger_logged = localStorage.getItem('Avenger-logged');
  
-if(Avenger_logged != null){
+if(Avenger_logged == null){
   if(score == 5) {
     if(resubmit == 0) {
       // Generate ID
