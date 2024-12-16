@@ -84,7 +84,7 @@ let AvengerID = localStorage.getItem('AvengerID');
 async function getUserBalance(avengerID) {
   try {
     // Reference to the balance in the Firebase Realtime Database
-    const balanceRef = ref(database, `Money/${avengerID}`); 
+    const balanceRef = ref(database, `Money/${avengerID}/money`); 
     
     // Get the data snapshot from Firebase
     const snapshot = await get(balanceRef);
