@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="description" content="This page is a friends group for me and my friends. The theme is on my favorite superhero team 'The Avengers'.This is a fanmade project and is not affiliated with Marvel Studios"> 
+  <meta name="keywords" content="Avengers, superheroes, HTML, CSS, JavaScript, website"> 
+  <meta name="author" content="Siam Islam"> 
+  <title>Iron Man Game</title> 
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #87CEEB;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .game-display {
+      flex: 1;
+      position: relative;
+      background-color: #f0f0f0;
+      border-bottom: 2px solid black;
+      overflow: hidden;
+    }
+    .character {
+      position: absolute;
+      width: 150px;
+      height: 50px;
+      bottom: 50px;
+      left: 50px;
+      background: url('https://Siam-tech.github.io/The-Avengers/iron_man.png') no-repeat center/cover;
+    }
+    .obstacle {
+      position: absolute;
+      width:  70px;
+      height: 70px;
+      background-color: red; 
+      right: -50px;
+    }
+    .controls {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      background-color: #4F4F4F;
+    }
+    .button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: white;
+      border: 2px solid black;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #ddd;
+    }
+    .restart-btn {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px 20px;
+      font-size: 24px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .score {
+      position: absolute;
+      top: 15px;
+      left: 10px;
+      font-size: 24px;
+      color: black;
+    }
+  </style> 
+ </head> 
+ <body> 
+  <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
+   <div class="logo"> 
+    <img src="https://Siam-tech.github.io/The-Avengers/Logo.png" width="60px"> 
+   </div> <a href="https://Siam-tech.github.io/The-Avengers/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
+  </div> <!-- Data Container --> 
+  <div id="allData" style="margin-top: 70px; padding: 20px;"></div> 
+  <style>
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #4F4F4F;
+      color: #00FFFF;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    #navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .account {
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+  </style> 
+  <div class="game-display"> 
+   <div class="score">
+     Score: 0 
+   </div> 
+   <div class="character"></div> 
+   <div class="obstacle" id="obstacle1"></div> 
+   <div class="obstacle" id="obstacle2"></div> 
+   <div class="obstacle" id="obstacle3"></div> <button class="restart-btn" onclick="restartGame()">Restart</button> 
+  </div> 
+  <div class="controls"> <button class="button" onclick="moveUp()">Up</button> <button class="button" onclick="moveDown()">Down</button> 
+  </div> 
+  <script type="module">
+  import { getDatabase, ref, get, set} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
+    authDomain: "avengers-account.firebaseapp.com",
+    databaseURL: "https://avengers-account-default-rtdb.firebaseio.com",
+    projectId: "avengers-account",
+    storageBucket: "avengers-account.appspot.com",
+    messagingSenderId: "738359469795",
+    appId: "1:738359469795:web:e032337eb00df0257d47d6",
+    measurementId: "G-9F4K7KVGED"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+  
+  let Money = parseInt(localStorage.getItem('Avengers-money'),10); 
+  let avengerID = localStorage.getItem('AvengerID');
+    
+    const character = document.querySelector('.character');
+    const obstacles = document.querySelectorAll('.obstacle');
+    const restartButton = document.querySelector('.restart-btn');
+    const scoreDisplay = document.querySelector('.score');
+    let characterBottom = 50;
+    let score = 0;
+    let gameInterval;
+
+    function moveUp() {
+      characterBottom = Math.min(characterBottom + 50, window.innerHeight / 2.19 - 80);
+      character.style.bottom = characterBottom + 'px';
+    }
+
+    function moveDown() {
+      characterBottom = Math.max(characterBottom - 50, 0);
+      character.style.bottom = characterBottom + 'px';
+    }
+
+function moveObstacles() {
+  obstacles.forEach((obstacle, index) => {
+    let obstacleRight = parseInt(obstacle.style.right || -50);
+    obstacleRight += 5 + index * 2; // Make each obstacle move faster
+    if (obstacleRight > window.innerWidth) {
+      obstacleRight = -50;
+      obstacle.style.top = Math.random() * (window.innerHeight / 2 - 50) + 'px';
+      score++;
+      Money = Money + 1;
+      scoreDisplay.textContent = `Score: ${score}`;
+    }
+    obstacle.style.right = obstacleRight + 'px';
+
+    // Collision detection
+    const charRect = character.getBoundingClientRect();
+    const obsRect = obstacle.getBoundingClientRect();
+    if (
+      charRect.left < obsRect.right &&
+      charRect.right > obsRect.left &&
+      charRect.top < obsRect.bottom &&
+      charRect.bottom > obsRect.top
+    ) {
+      endGame();
+    }
+  });
+}
+
+    function endGame() {
+      replaceData(Money);
+      clearInterval(gameInterval);
+      restartButton.style.display = 'block';
+      alert('Game Over! Final Score: ' + score);
+    }
+
+    function restartGame() {
+      
+      restartButton.style.display = 'none';
+      score = 0;
+      scoreDisplay.textContent = 'Score: 0';
+      characterBottom = 50;
+      character.style.bottom = characterBottom + 'px';
+      obstacles.forEach(obstacle => (obstacle.style.right = '-50px'));
+      gameInterval = setInterval(moveObstacles, 30);
+    }
+    
+    function replaceData(newData) {
+      
+    const userRef = ref(database, `Money/${avengerID}/money`); // Path to the user's data
+
+  // Replaces the entire user data with new data
+     set(userRef, newData)
+       .then(() => {
+         var done = true;
+         localStorage.setItem('Avengers-money',Money);
+       })
+       .catch((error) => {
+         alert('Error deposit money:', error);
+       });
+}
+    
+    
+
+    restartGame(); // Start the game
+    
+    window.restartGame = restartGame;
+    window.moveUp = moveUp;
+    window.moveDown = moveDown;
+
+  </script> 
+ </body>
+</html>
