@@ -3,8 +3,6 @@
  <head> 
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <meta name="description" content="This page is a friends group for me and my friends. The theme is on my favorite superhero team 'The Avengers'."> 
-  <meta name="keywords" content="Avengers, superheroes, HTML, CSS, JavaScript, website"> 
   <meta name="author" content="Siam Islam"> 
   <title>
      Form to join The Avengers 
@@ -13,14 +11,14 @@
  <body> 
   <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
    <div class="logo"> 
-    <img src="https://Siam-tech.github.io/The-Avengers/Logo.png" width="60px"> 
+    <img src="https://Siam-tech.github.io/QuantumEdge/Logo.png" width="90px"> 
    </div> 
   </div> 
   <br> 
   <br> 
-  <h1> Fill up this form to join <big><i>The Avengers</i></big> </h1> 
+  <h1> Fill up this form to join <big><i>QuantumEdge</i></big> </h1> 
   <form style="border:2px solid black;"> 
-   <h1 style="text-align: center;"><big><i>AVENGERS INITIATIVE</i></big></h1> 
+   <h1 style="text-align: center;"><big><i>QuantumEdge INITIATIVE</i></big></h1> 
    <h2 style="text-align: center;">Dhaka-Bangladesh</h2> 
    <br> 
    <br> 
@@ -228,9 +226,9 @@ alert("This name is already reserved");
     resultdetails = "Details: " + details; 
   }
 
- const Avenger_logged = localStorage.getItem('Avenger-logged');
+ const member_logged = localStorage.getItem('member-logged');
  
-if(Avenger_logged != "True"){
+if(member_logged != "True"){
   if(score == 5) {
     if(resubmit == 0) {
       // Generate ID
@@ -244,10 +242,10 @@ if(Avenger_logged != "True"){
       var generatedID = names[0].toUpperCase() + "-" + birthday + "-" + birthmonth + "-" + last3phone + "-" + last3brn;
 
       // Save to localStorage
-      localStorage.setItem('AvengerID', generatedID);
+      localStorage.setItem('memberID', generatedID);
       var resultId = "Your ID: " + generatedID;
 
-      localStorage.setItem('Avengers-name', names);
+      localStorage.setItem('mamber-name', names);
       
       const formData = {
         resultname: resultname,
@@ -262,11 +260,11 @@ if(Avenger_logged != "True"){
      
 
       // Get the user ID from localStorage
-      const AvengerID = localStorage.getItem('AvengerID');
+      const memberID = localStorage.getItem('memberID');
 
       // Reference to the Firebase database where the data will be stored under the user's ID
-      const formRef = ref(database,'formSubmissions/' + AvengerID); // This will store data under the user's ID
-      const Balance = ref(database, 'Money/'+AvengerID);
+      const formRef = ref(database,'formSubmissions/' + memberID); // This will store data under the user's ID
+      const Balance = ref(database, 'Money/'+memberID);
      
       // Save data
       set(formRef, formData)
@@ -297,11 +295,11 @@ if(Avenger_logged != "True"){
       document.getElementById('resultemail').innerText = resultemail;
       document.getElementById('resultdetails').innerText = resultdetails;
       document.getElementById('resultID').innerText = generatedID;
-      alert("Form submitted. Welcome to The Avenger!");
+      alert("Form submitted. Welcome to The QuantumEdge!");
 
       resubmit = 1;
-      localStorage.setItem('Avenger-logged',"True");
-      localStorage.setItem('Avengers-money',0);
+      localStorage.setItem('member-logged',"True");
+      localStorage.setItem('member-money',0);
     }
     else if(resubmit == 1) {
       alert("Form already submitted");
@@ -320,7 +318,7 @@ if(Avenger_logged != "True"){
   }
 }
 else{
- alert("You've already joined The Avengers");
+ alert("You've already joined The QuantumEdge");
 }
 }
 window.Submit = Submit;
