@@ -3,16 +3,14 @@
  <head> 
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <meta name="description" content="This page is a friends group for me and my friends. The theme is on my favorite superhero team 'The Avengers'.This is a fanmade project and is not affiliated with Marvel Studios"> 
-  <meta name="keywords" content="Avengers, superheroes, HTML, CSS, JavaScript, website"> 
   <meta name="author" content="Siam Islam"> 
-  <title>Avengers Accounts</title> 
+  <title>Members Accounts</title> 
  </head> 
  <body> <!-- Navbar --> 
   <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
    <div class="logo"> 
-    <img src="https://Siam-tech.github.io/The-Avengers/Logo.png" width="60px"> 
-   </div> <a href="https://Siam-tech.github.io/The-Avengers/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
+    <img src="https://Siam-tech.github.io/QuantumEdge/Logo.png" width="60px"> 
+   </div> <a href="https://Siam-tech.github.io/QuantumEdge/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
   </div> <!-- Data Container --> 
   <div id="allData" style="margin-top: 70px; padding: 20px;"></div> 
   <style>
@@ -73,13 +71,13 @@
           const allDataDiv = document.getElementById('allData');
           allDataDiv.innerHTML = ""; // Clear the div before displaying new data
 
-          for (let avengerID in data) {
-            const submission = data[avengerID];
+          for (let memberID in data) {
+            const submission = data[memberID];
             const submissionDiv = document.createElement('div');
             submissionDiv.classList.add('account');
             submissionDiv.innerHTML = `
-              <img src="https://Siam-tech.github.io/The-Avengers/Logo.png" width=40px>
-              <h3>AvengerID: ${avengerID}</h3>
+              <img src="https://Siam-tech.github.io/QuantumEdge/Logo.png" width=60px>
+              <h3>AvengerID: ${memberID}</h3>
               <p><strong>${submission.resultname}</strong></p>
               <p><strong>${submission.rradio}</strong></p>
               <p><strong>${submission.resultdate}</strong></p>
