@@ -24,7 +24,7 @@
     .character {
       position: absolute;
       width: 150px;
-      height: 110px;
+      height: 128px;
       bottom: 50px;
       left: 50px;
       background: url('https://Siam-tech.github.io/QuantumEdge/Hero.png') no-repeat center/cover;
@@ -140,8 +140,14 @@
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
   
-  let Money = parseInt(localStorage.getItem('membermoney'),10); 
+  
+  
+  let Money = parseInt(localStorage.getItem('member-money'),10); 
   let memberID = localStorage.getItem('memberID');
+  
+  
+  
+  
     
     const character = document.querySelector('.character');
     const obstacles = document.querySelectorAll('.obstacle');
@@ -214,7 +220,7 @@ function moveObstacles() {
      set(userRef, newData)
        .then(() => {
          var done = true;
-         localStorage.setItem('membermoney',Money);
+         localStorage.setItem('member-money',Money);
        })
        .catch((error) => {
          alert('Error deposit money:', error);
