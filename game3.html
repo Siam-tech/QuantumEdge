@@ -24,7 +24,7 @@
     .character {
       position: absolute;
       width: 150px;
-      height: 50px;
+      height: 100px;
       bottom: 50px;
       left: 50px;
       background: url('https://Siam-tech.github.io/QuantumEdge/Hero.png') no-repeat center/cover;
@@ -141,7 +141,7 @@
   const database = getDatabase(app);
   
   let Money = parseInt(localStorage.getItem('membermoney'),10); 
-  let avengerID = localStorage.getItem('memberID');
+  let memberID = localStorage.getItem('memberID');
     
     const character = document.querySelector('.character');
     const obstacles = document.querySelectorAll('.obstacle');
