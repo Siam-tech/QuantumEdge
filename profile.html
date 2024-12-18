@@ -2,17 +2,15 @@
 <html> 
  <head> 
   <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <meta name="description" content="This page is a friends group for me and my friends. The theme is on my favorite superhero team 'The Avengers'.This is a fanmade project and is not affiliated with Marvel Studios"> 
-  <meta name="keywords" content="Avengers, superheroes, HTML, CSS, JavaScript, website"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
   <meta name="author" content="Siam Islam"> 
   <title>Avengers Accounts</title> 
  </head> 
  <body> <!-- Navbar --> 
   <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
    <div class="logo"> 
-    <img src="https://Siam-tech.github.io/The-Avengers/Logo.png" width="60px"> 
-   </div> <a href="https://Siam-tech.github.io/The-Avengers/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
+    <img src="https://Siam-tech.github.io/QuantumEdge/Logo.png" width="90px"> 
+   </div> <a href="https://Siam-tech.github.io/QuantumEdge/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
   </div> <!-- Data Container --> 
   <div id="allData" style="margin-top: 70px; padding: 20px;"></div> 
   <style>
@@ -64,27 +62,27 @@ const database = getDatabase(app);
 // Function to retrieve data for a specific user
 async function getUserData(avengerID) {
   try {
-    const userRef = ref(database, `formSubmissions/${avengerID}`);
+    const userRef = ref(database, `formSubmissions/${memberID}`);
     const snapshot = await get(userRef);
 
     if (snapshot.exists()) {
       return snapshot.val(); // Return user data
     } else {
-      throw new Error(`User with ID ${avengerID} not found.`);
+      throw new Error(`User with ID ${memberID} not found.`);
     }
   } catch (error) {
     alert(error.message);
   }
 }
 
-let AvengerID = localStorage.getItem('AvengerID');
+let memberID = localStorage.getItem('memberID');
 
 // Function to retrieve balance for a specific user
 // Function to retrieve balance for a specific user
-async function getUserBalance(avengerID) {
+async function getUserBalance(memberID) {
   try {
     // Reference to the balance in the Firebase Realtime Database
-    const balanceRef = ref(database, `Money/${avengerID}/money`); 
+    const balanceRef = ref(database, `Money/${memberID}/money`); 
     
     // Get the data snapshot from Firebase
     const snapshot = await get(balanceRef);
@@ -93,7 +91,7 @@ async function getUserBalance(avengerID) {
     if (snapshot.exists()) {
       return snapshot.val(); // Return the balance value from Firebase
     } else {
-      throw new Error(`Balance for user with ID ${avengerID} not found.`);
+      throw new Error(`Balance for user with ID ${memberID} not found.`);
     }
   } catch (error) {
     
@@ -107,8 +105,8 @@ async function displayUserDetails(avengerID) {
   allDataDiv.innerHTML = ""; // Clear previous content
 
   try {
-    const userData = await getUserData(avengerID);
-    const userBalance = await getUserBalance(avengerID);
+    const userData = await getUserData(memberID);
+    const userBalance = await getUserBalance(memberID);
     
 
     if (userData && userBalance !== undefined) {
@@ -116,7 +114,7 @@ async function displayUserDetails(avengerID) {
       userDiv.classList.add('account');
       userDiv.innerHTML = `
         <img src = "https://Siam-tech.github.io/The-Avengers/Logo.png" width = 40px>
-        <h2>AvengerID: ${avengerID}</h2>
+        <h2>MemberID: ${memberID}</h2>
         <h3>${userData.resultname}</h3>
         <h3>${userData.rradio}</h3>
         <h3>${userData.resultdate}</h3>
@@ -133,7 +131,7 @@ async function displayUserDetails(avengerID) {
 
 // Example usage: Fetch and display data for a specific user
  // Replace with the specific user ID
-displayUserDetails(AvengerID);
+displayUserDetails(memberID);
 </script> 
  </body>
 </html>
