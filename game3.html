@@ -3,8 +3,6 @@
  <head> 
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <meta name="description" content="This page is a friends group for me and my friends. The theme is on my favorite superhero team 'The Avengers'.This is a fanmade project and is not affiliated with Marvel Studios"> 
-  <meta name="keywords" content="Avengers, superheroes, HTML, CSS, JavaScript, website"> 
   <meta name="author" content="Siam Islam"> 
   <title>Iron Man Game</title> 
   <style>
@@ -29,7 +27,7 @@
       height: 50px;
       bottom: 50px;
       left: 50px;
-      background: url('https://Siam-tech.github.io/The-Avengers/iron_man.png') no-repeat center/cover;
+      background: url('https://Siam-tech.github.io/QuantumEdge/Hero.png') no-repeat center/cover;
     }
     .obstacle {
       position: absolute;
@@ -81,8 +79,8 @@
  <body> 
   <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
    <div class="logo"> 
-    <img src="https://Siam-tech.github.io/The-Avengers/Logo.png" width="60px"> 
-   </div> <a href="https://Siam-tech.github.io/The-Avengers/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
+    <img src="https://Siam-tech.github.io/QuantumEdge/Logo.png" width="90px"> 
+   </div> <a href="https://Siam-tech.github.io/QuantumEdge/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
   </div> <!-- Data Container --> 
   <div id="allData" style="margin-top: 70px; padding: 20px;"></div> 
   <style>
@@ -142,8 +140,8 @@
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
   
-  let Money = parseInt(localStorage.getItem('Avengers-money'),10); 
-  let avengerID = localStorage.getItem('AvengerID');
+  let Money = parseInt(localStorage.getItem('membermoney'),10); 
+  let avengerID = localStorage.getItem('memberID');
     
     const character = document.querySelector('.character');
     const obstacles = document.querySelectorAll('.obstacle');
@@ -210,13 +208,13 @@ function moveObstacles() {
     
     function replaceData(newData) {
       
-    const userRef = ref(database, `Money/${avengerID}/money`); // Path to the user's data
+    const userRef = ref(database, `Money/${memberID}/money`); // Path to the user's data
 
   // Replaces the entire user data with new data
      set(userRef, newData)
        .then(() => {
          var done = true;
-         localStorage.setItem('Avengers-money',Money);
+         localStorage.setItem('membermoney',Money);
        })
        .catch((error) => {
          alert('Error deposit money:', error);
