@@ -162,7 +162,7 @@ function restart(){
 
  function replaceData(newData) {
    
-    const Money = parseInt(localStorage.getItem('member-money'),10);
+    let Money = parseInt(localStorage.getItem('member-money'),10);
         
         const memberID = localStorage.getItem('memberID');  
     const userRef = ref(database, `Money/${memberID}/money`); // Path to the user's data
