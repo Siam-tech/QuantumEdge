@@ -72,7 +72,7 @@
           // Convert the object to an array and sort by "money" in descending order
           const sortedData = Object.entries(data)
             .map(([memberID, submission]) => ({ memberID, ...submission }))
-            .sort((a, b) => b.money - a.money); // Sort by money, descending
+            .sort((a, b) => b.level - a.level); // Sort by money, descending
 
           // Display the sorted leaderboard
           sortedData.forEach((entry, index) => {
@@ -80,6 +80,7 @@
             submissionDiv.classList.add('account');
             submissionDiv.innerHTML = `
               <h3>#${index + 1} - MemberID: ${entry.memberID}</h3>
+              <h4>Level-${entry.level}</h4>
               <p>Balance: ${entry.money} $</p>
             `;
             allDataDiv.appendChild(submissionDiv);
