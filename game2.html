@@ -1,0 +1,195 @@
+<!doctype html>
+<html> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="author" content="Siam Islam"> 
+  <title>Defeat the Bot</title> 
+ </head> 
+ <body style="background-color: cyan;"> 
+  <div id="navbar" class="navbar" style="display: flex; justify-content: space-between; align-items: center;"> 
+   <div class="logo"> 
+    <img src="https://Siam-tech.github.io/QuantumEdge/Logo.png" width="90px"> 
+   </div> <a href="https://Siam-tech.github.io/QuantumEdge/Homepage.html" style="text-decoration: none; color: black; font-size: 30px; border: 1px solid black; padding: 5px 5px; background-color: grey;">Home</a> 
+  </div> <!-- Data Container --> 
+  <div id="allData" style="margin-top: 70px; padding: 20px;"></div> 
+  <style>
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #4F4F4F;
+      color: #00FFFF;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    #navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .Bot{
+      
+      background: url("https://Siam-tech.github.io/QuantumEdge/villain.png");
+      padding: 182px 146px;
+      border: none;
+                 
+    }
+    
+    .health{
+      
+      color: green;
+      text-align: center;            
+    }
+    
+    .center{
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    
+    .restart{
+      
+      background-color: blue;
+      padding: 30px 30px;
+      font-size: 25px;
+            
+    }
+        
+    </style> 
+  <script type="module">
+      
+import { getDatabase, ref, get, set} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
+  authDomain: "avengers-account.firebaseapp.com",
+  databaseURL: "https://avengers-account-default-rtdb.firebaseio.com",
+  projectId: "avengers-account",
+  storageBucket: "avengers-account.appspot.com",
+  messagingSenderId: "738359469795",
+  appId: "1:738359469795:web:e032337eb00df0257d47d6",
+  measurementId: "G-9F4K7KVGED"
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+const ouch = document.getElementById('ouch');
+const back = document.getElementById('back');
+const blast = document.getElementById('blast');
+let messege = "No"; 
+
+let health = 100;
+
+function hit(){
+  
+  if(health > 0){
+  
+  health = health - 1;
+  ouch.play();
+  display();
+  }
+  else{
+    
+    alert('Bot defeated already');
+    
+  }
+  
+  if(messege == "No"){
+  
+  if(health == 0){
+    blast.play();
+    messege = "Done";
+    gameover();
+    
+  }
+  else if(health < 51){
+    
+  color("red");
+    
+  }
+  else{
+    
+    color("green");
+    
+  }
+  
+  }
+    
+}
+
+
+function display(){
+  
+  document.getElementById('health').innerText = health;
+  
+
+}
+
+function color(value){
+  
+  const text = document.querySelector('.health').style.color = value;
+  
+}
+
+function gameover(){
+  
+  replaceData(100); 
+  alert('Bot defeated 😎');
+  
+}
+
+function restart(){
+  
+  back.play()
+  health = 100;
+  color('green');
+  display();
+  messege = "No"; 
+    
+}
+
+ function replaceData(newData) {
+   
+    const Money = parseInt(localStorage.getItem('member-money'),10);
+        
+        const memberID = localStorage.getItem('memberID');  
+    const userRef = ref(database, `Money/${memberID}/money`); // Path to the user's data
+
+  // Replaces the entire user data with new data
+  newData = Money + newData;
+     set(userRef, newData)
+       .then(() => {
+         var done = true;
+         localStorage.setItem('member-money',Money);
+       })
+       .catch((error) => {
+         alert('Error deposit money:', error);
+       });
+}
+    
+
+
+display();
+
+window.hit = hit;
+window.restart = restart;
+
+</script> 
+  <h1 class="health" id="health"></h1> 
+  <div class="center"> <button class="Bot" id="Bot" onclick="hit()"></button> 
+  </div> <button onclick="restart()" class="restart">Restart</button> 
+  <audio src="https://Siam-tech.github.io/QuantumEdge/ouch.mp3" preload="auto" id="ouch"></audio> 
+  <audio src="https://Siam-tech.github.io/QuantumEdge/back.mp3" preload="auto" id="back"></audio> 
+  <audio src="https://Siam-tech.github.io/QuantumEdge/boom.mp3" preload="auto" id="blast"></audio> 
+ </body>
+</html>
