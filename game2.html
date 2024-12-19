@@ -166,8 +166,8 @@ function restart(){
     const userRef = ref(database, `Money/${memberID}/money`); // Path to the user's data
 
   // Replaces the entire user data with new data
-  newData = Money + newData;
-     set(userRef, newData)
+  Money = Money + newData;
+     set(userRef, Money)
        .then(() => {
          var done = true;
          localStorage.setItem('member-money',Money);
