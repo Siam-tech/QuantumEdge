@@ -122,7 +122,8 @@
   </div> 
   <div class="controls"> <button class="button" onclick="moveUp()">Up</button> <button class="button" onclick="moveDown()">Down</button> 
   </div> 
-  <script type="module">
+  <audio src="https://Siam-tech.github.io/QuantumEdge/boom.mp3" id="blast" preload="auto"></audio>
+   <script type="module">
   import { getDatabase, ref, get, set} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 
@@ -144,6 +145,7 @@
   
   let Money = parseInt(localStorage.getItem('member-money'),10); 
   let memberID = localStorage.getItem('memberID');
+  const blast document.getElementById('blast')
   
   
   
@@ -189,6 +191,7 @@ function moveObstacles() {
       charRect.top < obsRect.bottom &&
       charRect.bottom > obsRect.top
     ) {
+      blast.play();
       endGame();
     }
   });
