@@ -229,7 +229,9 @@ function moveObstacles() {
     }
 
     function restartGame() {
-      
+
+      recall = 9;
+      call()
       restartButton.style.display = 'none';
       score = 0;
       scoreDisplay.textContent = 'Score: 0';
