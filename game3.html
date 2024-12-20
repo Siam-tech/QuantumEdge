@@ -4,7 +4,7 @@
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <meta name="author" content="Siam Islam"> 
-  <title>Fly the Bot</title> 
+  <title>Fly The Bot</title> 
   <style>
     body {
       margin: 0;
@@ -121,9 +121,10 @@
    <div class="obstacle" id="obstacle3"></div> <button class="restart-btn" onclick="restartGame()">Restart</button> 
   </div> 
   <div class="controls"> <button class="button" onclick="moveUp()">Up</button> <button class="button" onclick="moveDown()">Down</button> 
-  </div> 
-  <audio src="https://Siam-tech.github.io/QuantumEdge/boom.mp3" id="blast" preload="auto"></audio>
-   <script type="module">
+  </div>
+  <audio src="https://Siam-tech.github.io/QuantumEdge/Eagle.mp3" preload="auto" id="eagle"></audio>
+  <audio src="https://Siam-tech.github.io/QuantumEdge/boom.mp3" preload="auto" id="blast"></audio>
+  <script type="module">
   import { getDatabase, ref, get, set} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 
@@ -145,10 +146,11 @@
   
   let Money = parseInt(localStorage.getItem('member-money'),10); 
   let memberID = localStorage.getItem('memberID');
-  const blast document.getElementById('blast')
   
+  const blast = document.getElementById('blast');
+  const eagle = document.getElementById('eagle');
   
-  
+    
   
     
     const character = document.querySelector('.character');
@@ -158,10 +160,32 @@
     let characterBottom = 50;
     let score = 0;
     let gameInterval;
+    let recall = 9;
+    
+    
+    function call(){
+      
+      recall = recall + 1;
+      
+      if(recall == 10){
+        
+        eagle.play();
+        recall = 0;
+        
+      }
+      else{
+        
+        var h = 0;
+        
+      }
+      
+    }
+    
 
     function moveUp() {
       characterBottom = Math.min(characterBottom + 50, window.innerHeight / 2.19 - 80);
       character.style.bottom = characterBottom + 'px';
+      call();
     }
 
     function moveDown() {
@@ -191,13 +215,13 @@ function moveObstacles() {
       charRect.top < obsRect.bottom &&
       charRect.bottom > obsRect.top
     ) {
-      blast.play();
       endGame();
     }
   });
 }
 
     function endGame() {
+      blast.play();
       replaceData(Money);
       clearInterval(gameInterval);
       restartButton.style.display = 'block';
@@ -233,6 +257,7 @@ function moveObstacles() {
     
 
     restartGame(); // Start the game
+    call();
     
     window.restartGame = restartGame;
     window.moveUp = moveUp;
