@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Check Level</title>
+</head>
+<body>
+  <h2>Member Level Status:</h2>
+  <p id="status" style="font-size: 24px; font-weight: bold;"></p>
+
+  <script>
+    const rawLevel = localStorage.getItem('member-level');
+    const parsedLevel = parseInt(rawLevel, 10);
+
+    if (rawLevel === null) {
+      document.getElementById('status').innerText = "❌ 'member-level' not found in localStorage.";
+    } else if (isNaN(parsedLevel)) {
+      document.getElementById('status').innerText = `⚠️ Found: "${rawLevel}" — but it's not a valid number (NaN).`;
+    } else {
+      document.getElementById('status').innerText = `✅ Level is saved correctly: ${parsedLevel}`;
+    }
+  </script>
+</body>
+</html>
