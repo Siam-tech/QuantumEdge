@@ -18,6 +18,10 @@
     } else {
       document.getElementById('status').innerText = `✅ Level is saved correctly: ${parsedLevel}`;
     }
+function change(){
+localStorage.setItem('member-level', 1);
+}
   </script>
+<button onclick="change()">Click here</button>
 </body>
 </html>
