@@ -44,10 +44,11 @@
       border-radius: 32px;
     }
   </style> 
-  <script type="module">
-  import { getDatabase, ref, get, set} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+ <script type="module">
+  import { getDatabase, ref, set } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 
+  // Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
     authDomain: "avengers-account.firebaseapp.com",
@@ -59,54 +60,55 @@
     measurementId: "G-9F4K7KVGED"
   };
 
+  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
 
+  // Load values safely from localStorage
+  let Money = parseInt(localStorage.getItem('member-money') || "0", 10);
+  let Level = parseInt(localStorage.getItem('member-level') || "1", 10);
+  let memberID = localStorage.getItem('memberID') || "UNKNOWN";
 
-
-  let Money = parseInt(localStorage.getItem('member-money'),10); 
-  let memberID = localStorage.getItem('memberID');
-  let Level = parseInt(localStorage.getItem('member-level'),10);
-  
+  // Update DOM
   document.getElementById('id').innerText = "ID: " + memberID;
-  document.getElementById('Money').innerText = "Balance: " + Money;
-  document.getElementById('Level').innerText = "Level:" + Level;     
-  
-  function trig(){
-    
-    if(Money >= 1000){
-      
-      Money = Money-1000;
-      Level = Level+1;
-      
-      replaceData(Money,money,Member-money);
-      replaceData(Level, "Level", "member-level");
-      
+  document.getElementById('Money').innerText = "Balance: $" + Money;
+  document.getElementById('Level').innerText = "Level: " + Level;
+
+  // Level-Up Logic
+  function trig() {
+    if (Money >= 1000) {
+      Money -= 1000;
+      Level += 1;
+
+      // Save updates
+      updateData(Money, "Money", "member-money");
+      updateData(Level, "Level", "member-level");
+
+      // Update UI
+      document.getElementById('Money').innerText = "Balance: $" + Money;
+      document.getElementById('Level').innerText = "Level: " + Level;
+
+      alert("✅ Level up successful!");
+    } else {
+      alert("❌ You don't have enough balance.\nMinimum 1000$ required.");
     }
-    else{
-      alert("You dont have enough balence:Minimal balance needed 1000$")
-    }
-    
   }
-  
-  
-  function replaceData(newData,tag, storagetag) {
 
-    const userRef = ref(database, `Money/${memberID}/tag`); // Path to the user's data
+  // Reusable update function
+  function updateData(newData, tag, localKey) {
+    const userRef = ref(database, `${tag}/${memberID}`);
+    set(userRef, newData)
+      .then(() => {
+        localStorage.setItem(localKey, newData);
+      })
+      .catch((error) => {
+        alert(`Firebase Error for ${tag}: ` + error);
+      });
+  }
 
-  // Replaces the entire user data with new data
-     set(userRef, newData)
-       .then(() => {
-         var done = true;
-         localStorage.setItem(storagetag,newData);
-       })
-       .catch((error) => {
-         alert('Error deposit money:', error);
-       });
-}
-  
-window.trig = trig;
-   </script> 
+  // Make trigger function accessible from button
+  window.trig = trig;
+</script>
 <div style="display: flex; justify-content: center; gap: 20px; align-items: center; padding: 20px;">
   <span style="border: 1px solid black; background-color: #f9f9f9; font-size: 30px; padding: 10px 20px; border-radius: 8px;" id="id">ID: 007</span>
   <span style="border: 1px solid black; background-color: #f9f9f9; font-size: 30px; padding: 10px 20px; border-radius: 8px;" id="Money">$100</span>
