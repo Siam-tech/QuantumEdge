@@ -66,7 +66,7 @@
 
   let Money = parseInt(localStorage.getItem('member-money'),10); 
   let memberID = localStorage.getItem('memberID');
-  let Level = parseInt((localStorage.getItem('member-level')),10);
+  let Level = parseInt(localStorage.getItem('member-level'),10);
   
   document.getElementById('id').innerText = "ID: " + memberID;
   document.getElementById('Money').innerText = "Balance: " + Money;
@@ -80,7 +80,7 @@
       Level = Level+1;
       
       replaceData(Money,money,Member-money);
-      replaceData(level,Level,member-level);
+      replaceData(Level, "Level", "member-level");
       
     }
     else{
