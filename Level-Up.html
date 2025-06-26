@@ -109,70 +109,80 @@
   // Make trigger function accessible from button
   window.trig = trig;
 </script>
-<!-- Info Cards -->
-<div style="display: flex; justify-content: center; gap: 30px; align-items: center; flex-wrap: wrap; padding: 30px;">
+<!-- Container for Info Cards -->
+<div style="
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 20px;
+  margin-top: 20px;
+">
   <span id="id" style="
-    background: linear-gradient(135deg, #e0e0e0, #ffffff);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 16px;
-    padding: 20px 30px;
-    font-size: 28px;
+    border: 2px solid black;
+    background-color: #f0f0f0;
+    font-size: clamp(18px, 4vw, 24px);
+    padding: 10px 20px;
+    border-radius: 10px;
     font-weight: bold;
-    color: #333;
-    min-width: 180px;
+    min-width: 120px;
     text-align: center;
-    border: none;
   ">ID: 007</span>
 
   <span id="Money" style="
-    background: linear-gradient(135deg, #d1ffe8, #ffffff);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 16px;
-    padding: 20px 30px;
-    font-size: 28px;
+    border: 2px solid black;
+    background-color: #f0f0f0;
+    font-size: clamp(18px, 4vw, 24px);
+    padding: 10px 20px;
+    border-radius: 10px;
     font-weight: bold;
-    color: #007b5e;
-    min-width: 180px;
+    min-width: 120px;
     text-align: center;
-    border: none;
   ">$100</span>
 
   <span id="Level" style="
-    background: linear-gradient(135deg, #ffe8d1, #ffffff);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 16px;
-    padding: 20px 30px;
-    font-size: 28px;
+    border: 2px solid black;
+    background-color: #f0f0f0;
+    font-size: clamp(18px, 4vw, 24px);
+    padding: 10px 20px;
+    border-radius: 10px;
     font-weight: bold;
-    color: #a05b00;
-    min-width: 180px;
+    min-width: 120px;
     text-align: center;
-    border: none;
   ">Lv 5</span>
 </div>
 
-<!-- Heading -->
-<div style="display: flex; justify-content: center; align-items: center; padding: 20px;">
-  <h1 style="font-size: 32px; color: #444;">🚀 Press the button below to level up</h1>
+<!-- Level Up Message -->
+<div style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  text-align: center;
+">
+  <h1 style="font-size: clamp(20px, 5vw, 32px);">
+    Press the button below to level up
+  </h1>
 </div>
 
-<!-- Button -->
-<div style="display: flex; justify-content: center; align-items: center; padding-bottom: 40px;">
-  <button onclick="trig()" style="
-    background: linear-gradient(135deg, #005eff, #00c6ff);
+<!-- Level Up Button -->
+<div style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+">
+  <button onclick="trig()" class="Up" style="
+    background-color: #007bff;
     color: white;
-    padding: 20px 40px;
-    font-size: 24px;
-    font-weight: bold;
+    padding: 15px 30px;
+    font-size: clamp(16px, 4vw, 24px);
     border: none;
-    border-radius: 40px;
-    box-shadow: 0 8px 20px rgba(0, 98, 255, 0.4);
+    border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 25px rgba(0,98,255,0.6)'" 
-     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 20px rgba(0,98,255,0.4)'">
-    ⚡ Level Up
-  </button>
+    font-weight: bold;
+    transition: 0.3s;
+  ">Level Up</button>
 </div>
  </body>
 </html>
