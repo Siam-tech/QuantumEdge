@@ -45,69 +45,89 @@
     }
   </style> 
  <script type="module">
-  import { getDatabase, ref, set } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+  import { getDatabase, ref, get, set } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 
-  // Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
-    authDomain: "avengers-account.firebaseapp.com",
-    databaseURL: "https://avengers-account-default-rtdb.firebaseio.com",
-    projectId: "avengers-account",
-    storageBucket: "avengers-account.appspot.com",
-    messagingSenderId: "738359469795",
-    appId: "1:738359469795:web:e032337eb00df0257d47d6",
-    measurementId: "G-9F4K7KVGED"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyDl1JmX8dQ4RGyKrDU_S2ZRduU_8PC3V4Q",
+  authDomain: "avengers-account.firebaseapp.com",
+  databaseURL: "https://avengers-account-default-rtdb.firebaseio.com",
+  projectId: "avengers-account",
+  storageBucket: "avengers-account.appspot.com",
+  messagingSenderId: "738359469795",
+  appId: "1:738359469795:web:e032337eb00df0257d47d6",
+  measurementId: "G-9F4K7KVGED"
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const database = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
-  // Load values safely from localStorage
-  let Money = parseInt(localStorage.getItem('member-money') || "0", 10);
-  let Level = parseInt(localStorage.getItem('member-level') || "1", 10);
-  let memberID = localStorage.getItem('memberID') || "UNKNOWN";
+let memberID = localStorage.getItem('memberID');
+let Money = 0;
+let Level = 0;
 
-  // Update DOM
+// 🔁 Fetch data from Firebase and sync UI + localStorage
+function loadData() {
+  const userRef = ref(database, 'Money/' + memberID);
+  get(userRef)
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        Money = data.money || 0;
+        Level = data.level || 1;
+
+        localStorage.setItem('member-money', Money);
+        localStorage.setItem('member-level', Level);
+
+        updateUI();
+      } else {
+        alert("⚠️ No data found for your account.");
+      }
+    })
+    .catch(error => {
+      alert("❌ Failed to fetch data: " + error);
+    });
+}
+
+// ⬆️ Update Firebase, localStorage & UI after leveling up
+function levelUp() {
+  if (Money >= 1000) {
+    Money -= 1000;
+    Level += 1;
+
+    const userRef = ref(database, 'Money/' + memberID);
+    const updated = {
+      money: Money,
+      level: Level
+    };
+
+    set(userRef, updated)
+      .then(() => {
+        localStorage.setItem('member-money', Money);
+        localStorage.setItem('member-level', Level);
+        updateUI();
+        alert("🎉 Level up successful!");
+      })
+      .catch(error => {
+        alert("❌ Failed to update data: " + error);
+      });
+  } else {
+    alert("💰 Not enough balance! Minimum 1000$ needed.");
+  }
+}
+
+// 🖥 Update DOM content
+function updateUI() {
   document.getElementById('id').innerText = "ID: " + memberID;
   document.getElementById('Money').innerText = "Balance: $" + Money;
   document.getElementById('Level').innerText = "Level: " + Level;
+}
 
-  // Level-Up Logic
-  function trig() {
-    if (Money >= 1000) {
-      Money -= 1000;
-      Level += 1;
+// 🔁 Auto run on page load
+loadData();
 
-      // Save updates
-      updateData(Money, "Money", "member-money");
-      updateData(Level, "Level", "member-level");
-
-      // Update UI
-      document.getElementById('Money').innerText = "Balance: $" + Money;
-      document.getElementById('Level').innerText = "Level: " + Level;
-
-      alert("✅ Level up successful!");
-    } else {
-      alert("❌ You don't have enough balance.\nMinimum 1000$ required.");
-    }
-  }
-
-  // Reusable update function
-  function updateData(newData, tag, localKey) {
-    const userRef = ref(database, `${tag}/${memberID}`);
-    set(userRef, newData)
-      .then(() => {
-        localStorage.setItem(localKey, newData);
-      })
-      .catch((error) => {
-        alert(`Firebase Error for ${tag}: ` + error);
-      });
-  }
-
-  // Make trigger function accessible from button
-  window.trig = trig;
+// 🖱 Expose to button
+window.trig = levelUp;
 </script>
 <!-- Container for Info Cards -->
 <div style="
